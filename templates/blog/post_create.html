@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %} Index {% endblock title %}
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+{% endblock css_additional %}
+{% block content %}
+<form action="{% url 'blog:post_create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h3>Create Post: </h3></legend>
+        {{ form.as_p }}
+            <input class="btn btn-success" type="submit" value="Create!">
+        </fieldset>
+    </form>
+    <a href="{% url 'blog:post_list' %}">Return to Post list</a>
+    {% include 'includes/return_index.html' %}
+{% endblock content %}

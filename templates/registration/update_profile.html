@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+{% block title %} Index {% endblock title %}
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+{% endblock css_additional %}
+
+{% block content %}
+<form action="{% url 'blog:update_profile' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h2>User Information: </h2></legend>
+        {{ form.as_p }}
+        {% if user.username == request.user.username or request.user.is_superuser %}
+        <input type="submit" class="btn btn-success" value="Update">
+        <a href="{% url 'blog:password_change' %}" class="btn btn-info">Change password</a>
+        {% endif %}
+    </fieldset>
+    <br>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %} Index {% endblock title %}
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+{% endblock css_additional %}
+{% block content %}
+    <form action="{% url 'blog:my_post_list' %}" method="GET">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h2>My posts: </h2></legend>
+            <h3>Published posts:</h3>
+        <ul class="list-group list-group-flush">
+            {% for p in post %}
+                {% if p.is_published %}
+                    <li class="list-group-item"><a href="{% url 'blog:post_detail' p.id %}">{{ p }}</a>
+                        <span class="badge badge-primary badge-pill">   Comments
+                            count: {{ p.comment_count }}</span></li>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <br>
+            <h3>Draft posts (waiting for moderation):</h3>
+            {% for p in post %}
+                {% if p.is_published == 0 %}
+                    <li class="list-group-item"><a href="{% url 'blog:post_detail' p.id %}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        </fieldset>
+    </form>
+    <button class="btn btn-outline-success"><a href="{% url 'blog:post_create' %}">Create Post</a></button>
+    {% include 'includes/return_index.html' %}
+{% endblock content %}

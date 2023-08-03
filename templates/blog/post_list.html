@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %} Index {% endblock title %}
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+{% endblock css_additional %}
+{% block content %}
+    <form action="{% url 'blog:post_list' %}" method="GET">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h2>All posts: </h2></legend>
+            <ul class="list-group list-group-flush">
+
+                {% for p in post %}
+                    <li class="list-group-item"><a href="{% url 'blog:post_detail' p.id %}">{{ p }}</a>
+                        <span class="badge badge-primary badge-pill">Comments count: {{ p.comment_count }}</span>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </fieldset>
+    </form>
+    <button class="btn btn-outline-success"><a href="{% url 'blog:post_create' %}">Create Post</a></button>
+    {% include 'includes/return_index.html' %}
+{% endblock content %}
