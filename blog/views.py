@@ -11,6 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
 from django.views.generic.list import MultipleObjectMixin
 
+from . import tasks
 from blog.forms import CommentModelForm, ContactForm, RegisterForm
 from blog.models import Comment, CustomUser, Post
 
@@ -220,12 +221,10 @@ def contact_us(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            send_mail(
+            tasks.post_email(
                 form.cleaned_data.get("subject"),
                 form.cleaned_data.get("message"),
-                settings.NOREPLY_EMAIL,
                 [form.cleaned_data.get("from_email")],
-                fail_silently=False,
             )
             return redirect(reverse("blog:index"))
     else:
