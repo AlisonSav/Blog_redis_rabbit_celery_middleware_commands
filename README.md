@@ -37,6 +37,6 @@ Open a browser to http://127.0.0.1:8000/admin/ to open the admin site
 Create a few test objects of each type.
 Open tab to http://127.0.0.1:5000 to see the main site, with your new objects.
 If you to create some objects - you need
-- first create Users -py manage.py create_users <int>
-- after create Posts -py manage.py create_posts <int>
-- create Comments -py manage.py create_comments <int>
+- first create Users -py manage.py create_users int
+- after create Posts -py manage.py create_posts int
+- create Comments -py manage.py create_comments int
