@@ -13,8 +13,9 @@
             <legend><h2>Popular posts: </h2></legend>
         <ul class="list-group list-group-flush">
             {% for post in posts %}
-                <li class="list-group-item"><a href="{% url 'blog:post_detail' post.id %}?next={{ request.path }}">{{ post }}</a>
-                       <span class="badge badge-primary badge-pill">Comments: {{ post.comment_count }}</span></li>
+                <li class="list-group-item"><a href="{% url 'blog:post_detail' post.id %}?next={{ request.path }}">{{ post }} </a>
+                    <span class="badge bg-success">  Comments: {{ post.comment_count }}</span></li>
+{#                Comments: {{ post.comment_count }}</li>#}
             {% endfor %}
         </ul>
         </fieldset>

@@ -15,8 +15,7 @@
 
                 {% for p in post %}
                     <li class="list-group-item"><a href="{% url 'blog:post_detail' p.id %}">{{ p }}</a>
-                        <span class="badge badge-primary badge-pill">Comments count: {{ p.comment_count }}</span>
-                    </li>
+                        <span class="badge bg-warning">  Comments: {{ p.comment_count }}</span></li>
                 {% endfor %}
 
             </ul>
