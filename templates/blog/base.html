@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock title %}</title>
     <meta charset="utf-8">
@@ -12,8 +13,12 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     {% block css_additional %}
-        {% load static %}
+        <script src="{% static 'js/contact_us.js' %}"></script>
         <link rel="stylesheet" href="{% static 'blog/project_style.css' %}">
+    {% endblock %}
+    {% block extra_css %}
+    {% endblock %}
+    {% block extra_js %}
     {% endblock %}
 </head>
 <body>
@@ -72,7 +77,6 @@
                             <li><a href="{% url 'blog:profile' %}">My profile</a></li>
                             <li><a href="{% url 'blog:my_post_list' %}">My Posts</a></li>
                             <li><a href="{% url 'blog:post_create' %}">Create Post</a></li>
-
                         {% else %}
                             <li><a href="{% url 'blog:login' %}">Login</a></li>
                             <li><a href="{% url 'blog:register' %}">Register</a></li>
@@ -108,6 +112,13 @@
                 {% endblock %}
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
         </div>
     </div>
 </div>
