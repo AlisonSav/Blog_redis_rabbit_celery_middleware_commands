@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <form action="{% url 'blog:contact_us' %}" method="POST">
+    <form action="{% url 'blog:contact_us' %}" method="POST" class="js-contact-form">
         {% csrf_token %}
         <fieldset>
             <h2 align="center">You can write us</h2>

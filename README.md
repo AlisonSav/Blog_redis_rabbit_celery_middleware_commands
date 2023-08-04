@@ -3,6 +3,12 @@
 <h3 align="center">This is Study project</h3>
 Overview
 This web application when Authors can create Posts and any users can comment its
+Any Users can see Popular posts with Comments, Authors list and Author detail.
+Any Users can write comments under the Post, but cant create Posts.
+Any Users can send contact form for admin.
+All Posts and Comments waiting for Admin moderation. Only Admin can publish created Posts and Comments
+Logged Users can create Posts and Comments, can delete Posts. Can see list with his Published and Draft Posts.
+Logged Users can update his Profile information.
 
 The main features that have currently been implemented are:
 
