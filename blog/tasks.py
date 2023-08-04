@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 
 @shared_task
 def post_email(subject, email, message):
+    """Sending email after creating post or comment"""
     mail_sent = send_mail(
         subject,
         message,

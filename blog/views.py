@@ -19,6 +19,7 @@ User = get_user_model()
 
 def index(request):
     """Start page where User can sign up/sign in"""
+
     posts = (
         Post.objects.filter(is_published=True).annotate(comment_count=Count("comment__id")).order_by("-comment_count")
     )
@@ -26,6 +27,8 @@ def index(request):
 
 
 class RegisterFormView(FormView):
+    """View for User registration"""
+
     template_name = "registration/register.html"
     form_class = RegisterForm
     success_url = reverse_lazy("blog:profile")
@@ -38,6 +41,8 @@ class RegisterFormView(FormView):
 
 
 class UserProfile(LoginRequiredMixin, DetailView):
+    """View with logged user's information"""
+
     model = CustomUser
     template_name = "registration/profile.html"
 
@@ -47,6 +52,8 @@ class UserProfile(LoginRequiredMixin, DetailView):
 
 
 class UpdateProfile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    """View for updating user's information"""
+
     model = CustomUser
     fields = ["first_name", "last_name", "email", "about", "avatar"]
     template_name = "registration/update_profile.html"
@@ -59,6 +66,8 @@ class UpdateProfile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    """View for crating post by logged user"""
+
     model = Post
     fields = ["title", "description", "body", "image"]
     template_name = "blog/post_create.html"
@@ -83,6 +92,8 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class PostDetailView(DetailView, MultipleObjectMixin):
+    """View with post details"""
+
     model = Post
     template_name = "blog/post_detail.html"
     paginate_by = 10
@@ -104,6 +115,8 @@ class PostDetailView(DetailView, MultipleObjectMixin):
 
 
 class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    """View for updating post by user-owner"""
+
     model = Post
     fields = ["title", "description", "body", "image"]
     template_name = "blog/post_update.html"
@@ -111,6 +124,8 @@ class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
+    """View for post deleting"""
+
     model = Post
     success_url = reverse_lazy("blog:my_post_list")
     success_message = "Post deleted"
@@ -120,7 +135,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class PostListView(ListView):
-    """Show all Posts in one Theme with count of Comments for each"""
+    """Show published Posts with count of Comments for each"""
 
     model = Post
     context_object_name = "post"
@@ -135,6 +150,8 @@ class PostListView(ListView):
 
 
 class MyPostListView(LoginRequiredMixin, ListView):
+    """View show published and draft posts for logged user"""
+
     model = Post
     context_object_name = "post"
     template_name = "blog/my_post_list.html"
@@ -145,6 +162,8 @@ class MyPostListView(LoginRequiredMixin, ListView):
 
 
 class AuthorListView(ListView):
+    """View with all registered Authors"""
+
     model = CustomUser
     context_object_name = "author"
     template_name = "blog/author_list.html"
@@ -155,12 +174,16 @@ class AuthorListView(ListView):
 
 
 class AuthorDetailView(DetailView):
+    """View with author's detail for any users"""
+
     model = CustomUser
     context_object_name = "author"
     template_name = "blog/author_detail.html"
 
 
 def comment_create(request, pk):
+    """View for creating comment on Post details"""
+
     post = get_object_or_404(Post, pk=pk)
     user = request.user
     post_path = f"http://127.0.0.1:5000/post/{post.id}"
@@ -192,6 +215,8 @@ def comment_create(request, pk):
 
 
 def contact_us(request):
+    """Contact form"""
+
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
