@@ -230,4 +230,4 @@ def contact_us(request):
             return redirect(reverse("blog:index"))
     else:
         form = ContactForm()
-    return render(request, "blog/contact_us.html", {"form": form})
+    return render(request, "blog/partial_contact_us.html", {"form": form})
